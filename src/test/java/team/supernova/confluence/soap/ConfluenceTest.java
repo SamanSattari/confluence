@@ -13,7 +13,7 @@ import java.util.Properties;
 import java.util.logging.Logger;
 
 /**
- * Created by m05f757 on 4-8-2015.
+ * Created by christopher-reedijk on 4-8-2015.
  */
 public class ConfluenceTest {
     private static final Logger LOG = Logger.getLogger(ConfluenceTest.class.toString());
@@ -22,6 +22,7 @@ public class ConfluenceTest {
     private final static String TARGET_PAGE = "LLDS_1";
     @Getter
     private Properties testProperties;
+    private Token token;
 
     @BeforeSuite
     public void initializeConfluence() throws ServiceException, RemoteException {
@@ -42,7 +43,7 @@ public class ConfluenceTest {
         String confluencePassword = getTestProperties().getProperty("confluence.password");
         String endpointAddress = getTestProperties().getProperty("confluence.endpointaddress");
 
-        Token token = Token.getInstance();
+        token = Token.getInstance();
         token.initialise(confluenceUser, confluencePassword, endpointAddress);
     }
 
@@ -53,6 +54,17 @@ public class ConfluenceTest {
 
             RemotePage utPage = page.read(PROJECT, TARGET_PAGE);
             LOG.info(utPage.getContent().toString());
+        } catch (RemoteException e) {
+            LOG.severe(e.getMessage());
+        } catch (ServiceException e) {
+            LOG.severe(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testGetUserByKey(){
+        try {
+            LOG.info(token.getServiceLocator().getConfluenceserviceV2().getUserByKey(token.getToken(),"8ac92cf346de76b60146de7a664802e4").getFullname());
         } catch (RemoteException e) {
             LOG.severe(e.getMessage());
         } catch (ServiceException e) {

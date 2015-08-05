@@ -9,7 +9,11 @@ import javax.xml.rpc.ServiceException;
 import java.rmi.RemoteException;
 
 /**
- * Created by m05f757 on 4-8-2014.
+ *
+ * Created by christopher-reedijk on 4-8-2014.
+ * More information on the SOAP API can be found here:
+ * {@linktourl https://docs.atlassian.com/confluence/latest/index.html?com/atlassian/confluence/rpc/soap/ConfluenceSoapService.html}
+ *
  */
 @Getter
 @Setter
@@ -17,7 +21,10 @@ public class Token {
 
     private static final String PORT_NAME = "ConfluenceserviceV2";
     private static final String SERVICE_NAME = "confluenceservice-v2";
+    @Getter
     private ConfluenceSoapService service;
+    @Getter
+    private ConfluenceSoapServiceServiceLocator serviceLocator;
     private String token;
 
     /*
@@ -41,7 +48,7 @@ public class Token {
     }
 
     public void initialise(String user, String password, String endPointAddress) throws ServiceException, RemoteException {
-        ConfluenceSoapServiceServiceLocator serviceLocator = new ConfluenceSoapServiceServiceLocator();
+        serviceLocator = new ConfluenceSoapServiceServiceLocator();
         serviceLocator.setConfluenceserviceV2WSDDServiceName(SERVICE_NAME);
         serviceLocator.setConfluenceserviceV2EndpointAddress(endPointAddress);
         serviceLocator.setEndpointAddress(PORT_NAME, endPointAddress);
