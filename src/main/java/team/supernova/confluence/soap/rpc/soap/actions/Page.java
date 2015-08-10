@@ -35,6 +35,13 @@ public class Page {
         return token.getService().updatePage(token.getToken(), page, rpuo);
     }
 
+    public RemotePage update(RemotePage page, Boolean notify) throws java.rmi.RemoteException, ServiceException {
+        RemotePageUpdateOptions rpuo = new RemotePageUpdateOptions();
+        rpuo.setMinorEdit(!notify);
+
+        return token.getService().updatePage(token.getToken(), page, rpuo);
+    }
+
     public RemotePage store(RemotePage page) throws java.rmi.RemoteException, ServiceException {
         return token.getService().storePage(token.getToken(), page);
     }

@@ -62,9 +62,66 @@ public class ConfluenceTest {
     }
 
     @Test
-    public void testGetUserByKey(){
+     public void testGetUserByKey(){
         try {
             LOG.info(token.getServiceLocator().getConfluenceserviceV2().getUserByKey(token.getToken(),"8ac92cf346de76b60146de7a664802e4").getFullname());
+            LOG.info(token.getServiceLocator().getConfluenceserviceV2().getUserByName(token.getToken(),"BH89VZ").getKey());
+        } catch (RemoteException e) {
+            LOG.severe(e.getMessage());
+        } catch (ServiceException e) {
+            LOG.severe(e.getMessage());
+        }
+    }
+
+    /**
+     * exportTypes: "TYPE_XML" or "TYPE_HTML"
+     */
+    @Test
+    public void testExportSpace(){
+        /*try {
+            LOG.info(token.getServiceLocator().getConfluenceserviceV2().exportSpace(token.getToken(),"MNS","TYPE_XML"));
+        } catch (RemoteException e) {
+            LOG.severe(e.getMessage());
+        } catch (ServiceException e) {
+            LOG.severe(e.getMessage());
+        }*/
+    }
+
+    @Test
+    public void testUpdateWithoutNotification(){
+        try {
+            Page page = new Page();
+
+            RemotePage utPage = page.read("~BH89VZ", "Test");
+            LOG.info(utPage.getContent().toString());
+            utPage.setContent(utPage.getContent().replace("test", "update"));
+            page.update(utPage, false);
+
+            utPage = page.read("~BH89VZ", "Test");
+            LOG.info(utPage.getContent().toString());
+            utPage.setContent(utPage.getContent().replace("update", "test"));
+            page.update(utPage, false);
+        } catch (RemoteException e) {
+            LOG.severe(e.getMessage());
+        } catch (ServiceException e) {
+            LOG.severe(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testUpdateWithNotification(){
+        try {
+            Page page = new Page();
+
+            RemotePage utPage = page.read("~BH89VZ", "Test");
+            LOG.info(utPage.getContent().toString());
+            utPage.setContent(utPage.getContent().replace("test", "update"));
+            page.update(utPage, true);
+
+            utPage = page.read("~BH89VZ", "Test");
+            LOG.info(utPage.getContent().toString());
+            utPage.setContent(utPage.getContent().replace("update", "test"));
+            page.update(utPage, true);
         } catch (RemoteException e) {
             LOG.severe(e.getMessage());
         } catch (ServiceException e) {
