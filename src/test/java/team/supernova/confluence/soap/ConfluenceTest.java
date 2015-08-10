@@ -23,6 +23,7 @@ public class ConfluenceTest {
     @Getter
     private Properties testProperties;
     private Token token;
+    private String personalSpace;
 
     @BeforeSuite
     public void initializeConfluence() throws ServiceException, RemoteException {
@@ -42,6 +43,7 @@ public class ConfluenceTest {
         String confluenceUser = getTestProperties().getProperty("confluence.user");
         String confluencePassword = getTestProperties().getProperty("confluence.password");
         String endpointAddress = getTestProperties().getProperty("confluence.endpointaddress");
+        personalSpace = getTestProperties().getProperty("confluence.personalSpace");
 
         token = Token.getInstance();
         token.initialise(confluenceUser, confluencePassword, endpointAddress);
@@ -92,12 +94,12 @@ public class ConfluenceTest {
         try {
             Page page = new Page();
 
-            RemotePage utPage = page.read("~BH89VZ", "Test");
+            RemotePage utPage = page.read(personalSpace, "Test");
             LOG.info(utPage.getContent().toString());
             utPage.setContent(utPage.getContent().replace("test", "update"));
             page.update(utPage, false);
 
-            utPage = page.read("~BH89VZ", "Test");
+            utPage = page.read(personalSpace, "Test");
             LOG.info(utPage.getContent().toString());
             utPage.setContent(utPage.getContent().replace("update", "test"));
             page.update(utPage, false);
