@@ -81,7 +81,7 @@ public class ConfluenceTest {
     @Test
     public void testExportSpace(){
         /*try {
-            LOG.info(token.getServiceLocator().getConfluenceserviceV2().exportSpace(token.getToken(),"MNS","TYPE_XML"));
+            LOG.info(token.getServiceLocator().getConfluenceserviceV2().exportSpace(token.getToken(),personalSpace,"TYPE_XML"));
         } catch (RemoteException e) {
             LOG.severe(e.getMessage());
         } catch (ServiceException e) {
@@ -115,12 +115,12 @@ public class ConfluenceTest {
         try {
             Page page = new Page();
 
-            RemotePage utPage = page.read("~BH89VZ", "Test");
+            RemotePage utPage = page.read(personalSpace, "Test");
             LOG.info(utPage.getContent().toString());
             utPage.setContent(utPage.getContent().replace("test", "update"));
             page.update(utPage, true);
 
-            utPage = page.read("~BH89VZ", "Test");
+            utPage = page.read(personalSpace, "Test");
             LOG.info(utPage.getContent().toString());
             utPage.setContent(utPage.getContent().replace("update", "test"));
             page.update(utPage, true);
