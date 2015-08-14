@@ -13,6 +13,22 @@
         <developerConnection>scm:git:https://github.com/Supernova-Team/confluence.git</developerConnection>
     </scm>
 
+    <repositories>
+        <repository>
+            <id>atlassian-public</id>
+            <url>https://maven.atlassian.com/content/groups/public/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+                <checksumPolicy>warn</checksumPolicy>
+            </releases>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.testng</groupId>
@@ -59,6 +75,11 @@
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
             <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence</groupId>
+            <artifactId>confluence</artifactId>
+            <version>5.8.8</version>
         </dependency>
     </dependencies>
 

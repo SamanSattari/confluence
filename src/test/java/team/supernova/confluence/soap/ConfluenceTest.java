@@ -12,6 +12,8 @@ import java.rmi.RemoteException;
 import java.util.Properties;
 import java.util.logging.Logger;
 
+import static org.testng.Assert.*;
+
 /**
  * Created by christopher-reedijk on 4-8-2015.
  */
@@ -58,8 +60,10 @@ public class ConfluenceTest {
             LOG.info(utPage.getContent().toString());
         } catch (RemoteException e) {
             LOG.severe(e.getMessage());
+            assertFalse(false);
         } catch (ServiceException e) {
             LOG.severe(e.getMessage());
+            assertFalse(false);
         }
     }
 
@@ -70,8 +74,10 @@ public class ConfluenceTest {
             LOG.info(token.getServiceLocator().getConfluenceserviceV2().getUserByName(token.getToken(),"BH89VZ").getKey());
         } catch (RemoteException e) {
             LOG.severe(e.getMessage());
+            assertFalse(false);
         } catch (ServiceException e) {
             LOG.severe(e.getMessage());
+            assertFalse(false);
         }
     }
 
@@ -80,13 +86,15 @@ public class ConfluenceTest {
      */
     @Test
     public void testExportSpace(){
-        /*try {
+        try {
             LOG.info(token.getServiceLocator().getConfluenceserviceV2().exportSpace(token.getToken(),personalSpace,"TYPE_XML"));
         } catch (RemoteException e) {
             LOG.severe(e.getMessage());
+            assertFalse(false);
         } catch (ServiceException e) {
             LOG.severe(e.getMessage());
-        }*/
+            assertFalse(false);
+        }
     }
 
     @Test
@@ -105,8 +113,10 @@ public class ConfluenceTest {
             page.update(utPage, false);
         } catch (RemoteException e) {
             LOG.severe(e.getMessage());
+            assertFalse(false);
         } catch (ServiceException e) {
             LOG.severe(e.getMessage());
+            assertFalse(false);
         }
     }
 
@@ -126,8 +136,10 @@ public class ConfluenceTest {
             page.update(utPage, true);
         } catch (RemoteException e) {
             LOG.severe(e.getMessage());
+            assertFalse(false);
         } catch (ServiceException e) {
             LOG.severe(e.getMessage());
+            assertFalse(false);
         }
     }
 
