@@ -20,8 +20,8 @@ import static org.testng.Assert.*;
 public class ConfluenceTest {
     private static final Logger LOG = Logger.getLogger(ConfluenceTest.class.toString());
     private static final String TEST_PROPS_FILE = "test.properties";
-    private final static String PROJECT = "kaas";
-    private final static String TARGET_PAGE = "LLDS_1";
+    private String project;
+    private String target_page;
     @Getter
     private Properties testProperties;
     private Token token;
@@ -42,6 +42,8 @@ public class ConfluenceTest {
             throw new RuntimeException(e);
         }
 
+        project =  getTestProperties().getProperty("confluence.space");
+        target_page = getTestProperties().getProperty("confluence.group");
         String confluenceUser = getTestProperties().getProperty("confluence.user");
         String confluencePassword = getTestProperties().getProperty("confluence.password");
         String endpointAddress = getTestProperties().getProperty("confluence.endpointaddress");
@@ -56,7 +58,7 @@ public class ConfluenceTest {
         try {
             Page page = new Page();
 
-            RemotePage utPage = page.read(PROJECT, TARGET_PAGE);
+            RemotePage utPage = page.read(project, target_page);
             LOG.info(utPage.getContent().toString());
         } catch (RemoteException e) {
             LOG.severe(e.getMessage());
